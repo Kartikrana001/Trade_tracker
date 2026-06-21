@@ -1,5 +1,5 @@
 while True:
-    print("")
+    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nEXIT             : 3")
     user_choice = input("Enter your choise: ")
     if user_choice == "1" :
         print("add trade")

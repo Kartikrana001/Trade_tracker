@@ -2,10 +2,21 @@ trades = []
 def add_trade():
     stock = input("Enter stock name: ").strip()
     buy_price = float(input("Enter buy price: "))
-    trades.append({"stock":stock,"buy_price":buy_price})
+    sell_price = float(input("Enter sell price: "))
+    trades.append({"stock":stock,"buy_price":buy_price,"sell_price":sell_price})
 def view_trades():
-    for trade in trades:
-        print(trade["stock"],"-",trade["buy_price"])
+    if len(trades) == 0:
+        print("No trade found...")
+    else:
+        for trade in trades:
+            print(f"{trade['stock']}: {trade['buy_price']} - {trade['sell_price']}")
+            profit = trade['sell_price'] - trade['buy_price']
+            if profit > 0:
+                print(f"profit: {profit}")
+            elif profit == 0:
+                print("No profit...")
+            else:
+                print(f"loss: {profit}")
 while True:
     print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nEXIT             : 3")
     user_choice = input("Enter your choise: ")

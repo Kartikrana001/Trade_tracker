@@ -1,9 +1,19 @@
 trades = []
+try:
+    with open("trades.txt","r") as file:
+        lines = file.readlines()
+    for line in lines:
+        stock,buy_price,sell_price = line.strip().split(",")
+        trades.append({"stock": stock,"buy_price": float(buy_price),"sell_price": float(sell_price)})
+except FileNotFoundError:
+    print("No previous data found...")
 def add_trade():
     stock = input("Enter stock name: ").strip()
     buy_price = float(input("Enter buy price: "))
     sell_price = float(input("Enter sell price: "))
     trades.append({"stock":stock,"buy_price":buy_price,"sell_price":sell_price})
+    with open("trades.txt","a") as file:
+        file.write(f"{stock},{buy_price},{sell_price}\n")
 def view_trades():
     if len(trades) == 0:
         print("No trade found...")

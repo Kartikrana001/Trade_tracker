@@ -3,24 +3,29 @@ try:
     with open("trades.txt","r") as file:
         lines = file.readlines()
     for line in lines:
-        stock,buy_price,sell_price = line.strip().split(",")
-        trades.append({"stock": stock,"buy_price": float(buy_price),"sell_price": float(sell_price)})
+        stock,buy_price,sell_price,quantity = line.strip().split(",")
+        trades.append({"stock": stock,"buy_price": float(buy_price),"sell_price": float(sell_price),"quantity":float(quantity)})
 except FileNotFoundError:
     print("No previous data found...")
 def add_trade():
     stock = input("Enter stock name: ").strip()
-    buy_price = float(input("Enter buy price: "))
-    sell_price = float(input("Enter sell price: "))
-    trades.append({"stock":stock,"buy_price":buy_price,"sell_price":sell_price})
+    try:
+        buy_price = float(input("Enter buy price: "))
+        sell_price = float(input("Enter sell price: "))
+        quantity = float(input("Enter the quantity: "))
+    except ValueError as v:
+        print("invalid input...")
+        return
+    trades.append({"stock":stock,"buy_price":buy_price,"sell_price":sell_price,"quantity":quantity})
     with open("trades.txt","a") as file:
-        file.write(f"{stock},{buy_price},{sell_price}\n")
+        file.write(f"{stock},{buy_price},{sell_price},{quantity}\n")
 def view_trades():
     if len(trades) == 0:
         print("No trade found...")
     else:
         for trade in trades:
-            print(f"{trade['stock']}: {trade['buy_price']} - {trade['sell_price']}")
-            profit = trade['sell_price'] - trade['buy_price']
+            print(f"{trade['stock']}: {trade['buy_price']} - {trade['sell_price']} - quantity: {trade['quantity']}")
+            profit = (trade['sell_price'] - trade['buy_price'])* trade['quantity']
             if profit > 0:
                 print(f"profit: {profit}")
             elif profit == 0:

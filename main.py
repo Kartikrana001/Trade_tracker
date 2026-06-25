@@ -32,14 +32,18 @@ def view_trades():
                 print("No profit...")
             else:
                 print(f"loss: {profit}")
+def total_trades():
+    print(f"TOTAL TRADES     : {len(trades)}")
 while True:
-    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nEXIT             : 3")
+    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nTOTAL TRADES     : 3\nEXIT             : 4")
     user_choice = input("Enter your choise: ")
     if user_choice == "1" :
         add_trade()
     elif user_choice == "2":
         view_trades()
-    elif user_choice == "3":
+    elif user_choice =="3":
+        total_trades()
+    elif user_choice == "4":
         break
     else:
         print("invelid choice")

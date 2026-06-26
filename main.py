@@ -12,7 +12,7 @@ def add_trade():
     try:
         buy_price = float(input("Enter buy price: "))
         sell_price = float(input("Enter sell price: "))
-        quantity = float(input("Enter the quantity: "))
+        quantity = int(input("Enter the quantity: "))
     except ValueError as v:
         print("invalid input...")
         return
@@ -34,8 +34,17 @@ def view_trades():
                 print(f"loss: {profit}")
 def total_trades():
     print(f"TOTAL TRADES     : {len(trades)}")
+def trade_statistics():
+    profit_count =0
+    loss_count =0
+    for trade in trades:
+        if (trade['sell_price'] -trade['buy_price']) > 0:
+            profit_count += 1
+        elif  (trade['sell_price'] -trade['buy_price']) < 0:
+            loss_count += 1
+    print(f"\nTOTAL TRADES     : {len(trades)}",f"\nPROFIT TRADES    : {profit_count}",f"\nLOSS COUNT       : {loss_count}")
 while True:
-    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nTOTAL TRADES     : 3\nEXIT             : 4")
+    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nTOTAL TRADES     : 3\nSTATISTICS       : 4\nEXIT             : 5\n")
     user_choice = input("Enter your choise: ")
     if user_choice == "1" :
         add_trade()
@@ -44,6 +53,8 @@ while True:
     elif user_choice =="3":
         total_trades()
     elif user_choice == "4":
+        trade_statistics()
+    elif user_choice == "5":
         break
     else:
         print("invelid choice")

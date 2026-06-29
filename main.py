@@ -43,8 +43,16 @@ def trade_statistics():
         elif  (trade['sell_price'] -trade['buy_price']) < 0:
             loss_count += 1
     print(f"\nTOTAL TRADES     : {len(trades)}",f"\nPROFIT TRADES    : {profit_count}",f"\nLOSS COUNT       : {loss_count}")
+def search_trade():
+    search_trade = input("Enter the stock: ")
+    for trade in trades:
+        if trade["stock"].lower() == search_trade.lower():
+            profit = (trade['sell_price'] -trade['buy_price']) * trade['quantity']
+            print(f"\nStock: {trade['stock']}",f"\nBuy price: {trade['buy_price']}",f"\nSell price: {trade['sell_price']}",f"\nQuantity: {trade['quantity']}",f"\nProfit/Loss: {profit}\n")
+            return
+    print("stock not found...")
 while True:
-    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nTOTAL TRADES     : 3\nSTATISTICS       : 4\nEXIT             : 5\n")
+    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nTOTAL TRADES     : 3\nSTATISTICS       : 4\nSEARCH TRADE     : 5\nEXIT             : 6\n")
     user_choice = input("Enter your choise: ")
     if user_choice == "1" :
         add_trade()
@@ -55,6 +63,8 @@ while True:
     elif user_choice == "4":
         trade_statistics()
     elif user_choice == "5":
+        search_trade()
+    elif user_choice == "6":
         break
     else:
-        print("invelid choice")
+        print("invelid choice...")

@@ -51,8 +51,22 @@ def search_trade():
             print(f"\nStock: {trade['stock']}",f"\nBuy price: {trade['buy_price']}",f"\nSell price: {trade['sell_price']}",f"\nQuantity: {trade['quantity']}",f"\nProfit/Loss: {profit}\n")
             return
     print("stock not found...")
+def delete_trade():
+    stock = input("Enter the stock to be deleted: ").strip()
+    for trade in trades:
+        if stock.lower() == trade['stock'].lower():
+            trades.remove(trade)
+        
+            with open("trades.txt", "w") as file:
+                for t in trades:
+                    file.write(f"{t['stock']},{t['buy_price']},{t['sell_price']},{t['quantity']}\n")
+
+            print("Trade deleted successfully.")
+            return
+    print("Trade not found.")
+
 while True:
-    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nTOTAL TRADES     : 3\nSTATISTICS       : 4\nSEARCH TRADE     : 5\nEXIT             : 6\n")
+    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nTOTAL TRADES     : 3\nSTATISTICS       : 4\nSEARCH TRADE     : 5\nDELETE TRADE     : 6\nEXIT             : 7\n")
     user_choice = input("Enter your choise: ")
     if user_choice == "1" :
         add_trade()
@@ -65,6 +79,8 @@ while True:
     elif user_choice == "5":
         search_trade()
     elif user_choice == "6":
+        delete_trade()
+    elif user_choice == "7":
         break
     else:
         print("invelid choice...")

@@ -64,9 +64,30 @@ def delete_trade():
             print("Trade deleted successfully.")
             return
     print("Trade not found.")
+def edit_trade():
+    stock = input("Enter the stock to edit: ").strip()
+    for trade in trades:
+        if trade["stock"].lower() == stock.lower():
+            print("\nCurrent Details")
+            print(f"Buy Price : {trade['buy_price']}")
+            print(f"Sell Price: {trade['sell_price']}")
+            print(f"Quantity  : {trade['quantity']}")
+            try:
+                trade["buy_price"] = float(input("Enter new buy price: "))
+                trade["sell_price"] = float(input("Enter new sell price: "))
+                trade["quantity"] = int(input("Enter new quantity: "))
+            except ValueError:
+                print("Invalid input...")
+                return
+            with open("trades.txt", "w") as file:
+                for t in trades:
+                    file.write(f"{t['stock']},{t['buy_price']},{t['sell_price']},{t['quantity']}\n")
+            print("Trade updated successfully.")
+            return
+    print("Trade not found...")
 
 while True:
-    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nTOTAL TRADES     : 3\nSTATISTICS       : 4\nSEARCH TRADE     : 5\nDELETE TRADE     : 6\nEXIT             : 7\n")
+    print("=====TRADE TRACKER=====\n\nADD TRADE        : 1\nVIEW TRADES      : 2\nTOTAL TRADES     : 3\nSTATISTICS       : 4\nSEARCH TRADE     : 5\nDELETE TRADE     : 6\nEDIT TRADE       : 7\nEXIT             : 8\n")
     user_choice = input("Enter your choise: ")
     if user_choice == "1" :
         add_trade()
@@ -81,6 +102,8 @@ while True:
     elif user_choice == "6":
         delete_trade()
     elif user_choice == "7":
+        edit_trade()
+    elif user_choice == "8":
         break
     else:
         print("invelid choice...")
